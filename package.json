@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/catsums/Vector2JS#readme",
   "dependencies": {
-    "@catsums/my": "^1.1.1"
+    "@catsums/my": "latest"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
