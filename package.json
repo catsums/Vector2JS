@@ -1,0 +1,40 @@
+{
+  "name": "@catsums/vector2",
+  "version": "1.0.1",
+  "description": "Vector2 library for Javascript inspired by Godot and Unity, but for handling the DOM and Canvas or just plain Vector Math calculations.",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.mjs",
+  "exports": {
+    ".": {
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.mjs"
+    }
+  },
+  "files": [
+    "./lib/**/*"
+  ],
+  "scripts": {
+    "build": "babel ./lib/esm -d ./lib/cjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catsums/Vector2JS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/catsums/Vector2JS/issues"
+  },
+  "homepage": "https://github.com/catsums/Vector2JS#readme",
+  "dependencies": {
+    "@catsums/my": "^1.1.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.20.2"
+  }
+}
