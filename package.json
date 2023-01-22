@@ -1,13 +1,13 @@
 {
   "name": "@catsums/vector2",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "Vector2 library for Javascript inspired by Godot and Unity, but for handling the DOM and Canvas or just plain Vector Math calculations.",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
   "exports": {
     ".": {
-      "require": "./lib/umd/index.min.js",
-      "import": "./lib/umd/index.min.js"
+      "require": "./lib/umd/index.dev.js",
+      "import": "./lib/umd/index.dev.js"
     }
   },
   "files": [
