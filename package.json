@@ -1,6 +1,6 @@
 {
   "name": "@catsums/vector2",
-  "version": "1.1.4",
+  "version": "1.2.4",
   "description": "Vector2 library for Javascript inspired by Godot and Unity, but for handling the DOM and Canvas or just plain Vector Math calculations.",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
@@ -23,16 +23,13 @@
     "type": "git",
     "url": "git+https://github.com/catsums/Vector2JS.git"
   },
-  "keywords": [],
+  "keywords": ["vector2","vector-math","2d","physics","geometry","position","transforms","rect2d","rect","line2d"],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/catsums/Vector2JS/issues"
   },
   "homepage": "https://github.com/catsums/Vector2JS#readme",
-  "dependencies": {
-    "@catsums/my": "latest"
-  },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
@@ -41,5 +38,8 @@
     "babel-loader": "^9.1.2",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "@catsums/my": "latest"
   }
 }
