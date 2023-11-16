@@ -1,45 +1,55 @@
 {
-  "name": "@catsums/vector2",
-  "version": "1.2.5",
-  "description": "Vector2 library for Javascript inspired by Godot and Unity, but for handling the DOM and Canvas or just plain Vector Math calculations.",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
-  "exports": {
-    ".": {
-      "require": "./lib/umd/index.dev.js",
-      "import": "./lib/umd/index.dev.js"
+    "name": "@catsums/vector2",
+    "version": "1.3.0",
+    "description": "Vector2 library for Javascript inspired by Godot and Unity, but for handling the DOM and Canvas or just plain Vector Math calculations.",
+    "types": "./lib/index.d.ts",
+    "main": "./lib/browser/index.js",
+    "module": "./lib/index.js",
+    "exports": {
+        ".": {
+            "require": "./lib/cjs/index.js",
+            "import": "./lib/esm/index.js"
+        }
+    },
+    "scripts": {
+        "bundle": "node --loader ts-node/esm build.mjs",
+        "build": "npm run bundle",
+        "update": "node update.mjs",
+        "npm-publish": "npm publish --access public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/catsums/Vector2JS.git"
+    },
+    "keywords": [
+        "vector2",
+        "vector-math",
+        "2d",
+        "physics",
+        "geometry",
+        "position",
+        "transforms",
+        "rect2d",
+        "rect",
+        "line2d"
+    ],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/catsums/Vector2JS/issues"
+    },
+    "homepage": "https://github.com/catsums/Vector2JS#readme",
+    "devDependencies": {
+        "@babel/cli": "^7.20.7",
+        "@babel/core": "^7.20.12",
+        "@babel/plugin-transform-runtime": "^7.19.6",
+        "@babel/preset-env": "^7.20.2",
+        "babel-loader": "^9.1.2",
+        "browserify": "^17.0.0",
+        "esbuild": "^0.19.5",
+        "esbuild-plugin-umd-wrapper": "^2.0.0",
+        "esmify": "^2.1.1",
+        "npm-dts": "^1.3.12",
+        "ts-node": "^10.9.1"
     }
-  },
-  "files": [
-    "./lib/**/*"
-  ],
-  "scripts": {
-    "bundle": "npx webpack",
-    "build-cjs": "babel ./lib/esm -d ./lib/cjs",
-    "build": "npm run build-cjs && npm run bundle",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/catsums/Vector2JS.git"
-  },
-  "keywords": ["vector2","vector-math","2d","physics","geometry","position","transforms","rect2d","rect","line2d"],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/catsums/Vector2JS/issues"
-  },
-  "homepage": "https://github.com/catsums/Vector2JS#readme",
-  "devDependencies": {
-    "@babel/cli": "^7.20.7",
-    "@babel/core": "^7.20.12",
-    "@babel/plugin-transform-runtime": "^7.19.6",
-    "@babel/preset-env": "^7.20.2",
-    "babel-loader": "^9.1.2",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
-  },
-  "dependencies": {
-    "@catsums/my": "latest"
-  }
 }
