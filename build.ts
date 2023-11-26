@@ -1,6 +1,6 @@
 import * as esbuild from 'esbuild';
 import { umdWrapper } from "esbuild-plugin-umd-wrapper";
-import npmDts from 'npm-dts';
+// import { Generator} from 'npm-dts';
 import util from 'util';
 import child_process from 'child_process';
 import fs from 'fs';
@@ -8,17 +8,12 @@ import path from 'path';
 
 const exec = util.promisify(child_process.exec);
 
-const { Generator } = npmDts;
-
-let entry = ['./src/*.ts'];
-let outDir = './lib'
-
-new Generator({
-	entry: 'src/index.ts',
-	output: 'lib/index.d.ts',
-}).generate();
-
-const Settings = {
+// new Generator({
+	// 	entry: 'src/index.ts',
+	// 	output: 'lib/index.d.ts',
+	// }).generate();
+	
+	const Settings = {
 	watch: false,
 }
 
@@ -27,16 +22,21 @@ process.argv.forEach(function (val) {
 		case '--watch':
 			Settings.watch = true;
 			break;
-		default:
-			break;
+			default:
+				break;
 	}
 });
+
+const GlobalName = "VECTOR2";
+
+let entry = ['./src/*.ts'];
+let outDir = './lib';
 
 let _default = {
 	entryPoints: entry,
 	bundle: false,
 	platform: 'neutral',
-	globalName: 'Vector2JS',
+	globalName: GlobalName,
 	plugins: [],
 	minify: false,
 	keepNames: true,
@@ -59,7 +59,14 @@ let data = [
 		_id: `browser`,
 		outdir: `${outDir}/browser`,
 		platform: "browser",
-		format: 'iife',
+		// format: 'iife',
+		format: "umd", // or "cjs"
+		bundle: true,
+		plugins: [
+			umdWrapper({
+				libraryName: GlobalName,
+			})
+		],
 	},
 ];
 
@@ -73,17 +80,25 @@ async function Build(){
 		}
 	}
 
-
 	let cmd = `tsc --outDir ${outDir}${Settings.watch ? ' --watch':''}`;
 	await exec(cmd);
 
-	data.forEach(function(d,i,arr){
-		d = Object.assign(d, _default);
+	let opts = data.map(function(d){
+		let opt : any = Object.assign({}, _default);
+
+		for(let k of Object.keys(d)){
+			if(k.startsWith('_')) continue;
+			if(k.startsWith('#')) continue;
+			opt[k] = d[k];
+		}
 
 		let id = d._id;
-		delete d._id;
 
-		d.plugins.push({
+		if(!opt.plugins){
+			opt.plugins = [];
+		}
+
+		opt.plugins.push({
 			name: 'env',
 			setup(build){
 				build.onEnd(async(result) => {
@@ -95,9 +110,12 @@ async function Build(){
 				})
 			}
 		});
+
+		console.log(`> Processed ${id}`);
+		return opt;
 	});
 
-	let ctxs = data.map(async(d, i, arr)=>{
+	let ctxs : Promise<esbuild.BuildContext|esbuild.BuildResult>[] = opts.map(async(d, i, arr)=>{
 		if(Settings.watch){
 			return await esbuild.context(d);
 		}
@@ -106,7 +124,10 @@ async function Build(){
 	
 	if(Settings.watch){
 		Promise.all(ctxs).then(async(res)=>{
-			await ctx.watch();
+			let arr = res as esbuild.BuildContext[];
+			arr.forEach((ctx)=>{
+				ctx.watch();
+			});
 			console.log("watching...");
 		});
 	}

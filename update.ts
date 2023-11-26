@@ -1,7 +1,7 @@
 
 import fs from "fs";
 
-let _version = null;
+let _version : string = '';
 
 const Settings = {
 	major: false,
@@ -33,13 +33,19 @@ fs.promises.readFile('./package.json').then((res)=>{
 		
 		let newVersion = version.slice();
 		if(!Settings.major && !Settings.minor){
+			//patch
 			newVersion[2] += 1;
 		}
-		if(Settings.major){
-			newVersion[0] += 1;
-		}
 		if(Settings.minor){
+			//change minor version and reset patch number
 			newVersion[1] += 1;
+			newVersion[2] = 0;
+		}
+		if(Settings.major){
+			//change major version and reset major and patch numbers
+			newVersion[0] += 1;
+			newVersion[1] = 0;
+			newVersion[2] = 0;
 		}
 
 		let newRes = JSON.parse(JSON.stringify(res));

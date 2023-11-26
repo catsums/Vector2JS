@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"incremental": true,
 		"target": "ESNext",
-		"module":"ESNext",
+		"module":"NodeNext",
 		"skipLibCheck": false,
 		"esModuleInterop": true,
 		"declaration": true,
